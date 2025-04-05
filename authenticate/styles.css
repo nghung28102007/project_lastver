@@ -1,0 +1,307 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #f0f0f0;
+}
+
+/* Container Styles */
+.signin-container,
+.signup-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode .signin-container,
+body.dark-mode .signup-container {
+    background-color: #1e1e1e;
+    border-color: #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Logo Styles */
+.logo {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+/* Heading Styles */
+h1 {
+    margin-bottom: 20px;
+    color: #00529f;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode h1 {
+    color: #4CAF50;
+}
+
+/* Form Group Styles */
+.form-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.form-group input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    outline: none;
+    background-color: #ffffff;
+    color: #000000;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode .form-group input {
+    background-color: #333;
+    border-color: #444;
+    color: #f0f0f0;
+}
+
+.form-group label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #aaa;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+    top: -20px;
+    left: 10px;
+    font-size: 12px;
+    color: #00529f;
+}
+
+body.dark-mode .form-group input:focus + label,
+body.dark-mode .form-group input:not(:placeholder-shown) + label {
+    color: #4CAF50;
+}
+
+/* Button Styles */
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #00529f;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #003f7f;
+}
+
+body.dark-mode button {
+    background-color: #388E3C;
+}
+
+body.dark-mode button:hover {
+    background-color: #2E7D32;
+}
+
+/* Link Styles */
+a {
+    color: #00529f;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+body.dark-mode a {
+    color: #4CAF50;
+}
+
+/* Back Button Styles */
+.back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    color: #00529f;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.back-btn:hover {
+    text-decoration: underline;
+}
+
+body.dark-mode .back-btn {
+    color: #4CAF50;
+}
+
+/* Modal Styles */
+.modal,
+.notification-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content,
+.notification-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 300px;
+    border-radius: 10px;
+    text-align: center;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+body.dark-mode .modal-content,
+body.dark-mode .notification-content {
+    background-color: #1e1e1e;
+    border-color: #444;
+    color: #f0f0f0;
+}
+
+/* Close Button Styles */
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+body.dark-mode .close-btn {
+    color: #ccc;
+}
+
+body.dark-mode .close-btn:hover,
+body.dark-mode .close-btn:focus {
+    color: #f0f0f0;
+}
+
+/* Loading Styles */
+.loading {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+body.dark-mode .loading {
+    background-color: rgba(18, 18, 18, 0.8);
+}
+
+/* Notification Styles */
+.notification-icon {
+    font-size: 50px;
+    color: #28a745;
+}
+
+.notification-title {
+    margin: 10px 0;
+    font-size: 24px;
+    color: #28a745;
+}
+
+.notification-message {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .notification-message {
+    color: #f0f0f0;
+}
+
+.notification-button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.notification-button:hover {
+    background-color: #218838;
+}
+
+body.dark-mode .notification-button {
+    background-color: #388E3C;
+}
+
+body.dark-mode .notification-button:hover {
+    background-color: #2E7D32;
+}
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+    z-index: 1000;
+}
+
+.dark-mode-toggle i {
+    color: #333;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .dark-mode-toggle {
+    background-color: #333;
+}
+
+body.dark-mode .dark-mode-toggle i {
+    color: #f0f0f0;
+}

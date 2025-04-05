@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindX News - Tin tức bóng đá hàng đầu</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js" rel="stylesheet">
+</head>
+<body>
+    <header id="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1 style="color: black;">Mind<span style="color: red;">X</span> News</h1>
+            </div>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active">Trang chủ</a></li>
+                    <li><a href="news.html">Tin tức</a></li>
+                    <li><a href="#">Lịch thi đấu</a></li>
+                    <li><a href="#">Bình luận</a></li>
+                    <li><a href="authenticate/signin.html">Đăng nhập</a></li>
+                </ul>
+            </nav>
+            <div class="weather-header" id="weather-header">
+                <div class="weather-icon">
+                    <i class="fas fa-sun"></i>
+                </div>
+                <div class="weather-info-header">Đang tải...</div>
+            </div>
+            <div class="toggle-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="dark-mode-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+        </div>
+    </header>
+
+
+    <main>
+        <div class="container">
+            <article class="main-article">
+                <h2 class="article-title">Trận đấu nổi bật: Việt Nam vs Thái Lan</h2>
+                <div class="article-meta">
+                    <span class="article-date"><i class="far fa-calendar-alt"></i> 15/06/2023</span>
+                    <span class="article-author"><i class="far fa-user"></i> Nguyễn Văn A</span>
+                </div>
+                <div class="article-image">
+                    <img src="assets/images/stadium.jpg" alt="Sân vận động Mỹ Đình">
+                </div>
+                <div class="article-content">
+                    <p>Đội tuyển Việt Nam sẽ đối đầu với Thái Lan trong trận cầu được mong đợi nhất vòng loại World Cup 2026 khu vực châu Á. Trận đấu diễn ra vào 19h30 tối nay tại sân vận động Mỹ Đình, Hà Nội.</p>
+                    
+                    <h3>Đội hình dự kiến</h3>
+                    <p>HLV Park Hang-seo đã công bố đội hình ra sân với nhiều bất ngờ. Tiền đạo Nguyễn Công Phượng sẽ đá chính sau thời gian dài ngồi dự bị. Hàng thủ được củng cố với sự trở lại của Đỗ Duy Mạnh.</p>
+                    
+                    <div class="article-hidden" id="hidden-content">
+                        <h3>Phân tích chiến thuật</h3>
+                        <p>Đội tuyển Việt Nam nhiều khả năng sẽ áp dụng lối chơi phòng ngự phản công quen thuộc. Với tốc độ của Văn Toàn và kỹ thuật của Quang Hải, đội tuyển có thể tạo ra những đợt tấn công nguy hiểm.</p>
+                        
+                        <p>Trong khi đó, đội tuyển Thái Lan với HLV Mano Polking sẽ chơi tấn công áp đặt với sơ đồ 4-3-3. Chanathip Songkrasin vẫn là ngôi sao được kỳ vọng sẽ tỏa sáng bên phía đội khách.</p>
+                        
+                        <h3>Lịch sử đối đầu</h3>
+                        <p>Trong 10 trận gần nhất, Việt Nam thắng 3, hòa 4 và thua 3 trước Thái Lan. Trận đấu gần nhất giữa hai đội kết thúc với tỷ số hòa 0-0 tại AFF Cup 2022.</p>
+                    </div>
+                    
+                    <button id="read-more" class="btn-read-more">Xem thêm <i class="fas fa-chevron-down"></i></button>
+                </div>
+            </article>
+            
+            <section class="more-articles">
+                <h2>Tin tức khác</h2>
+                <div class="articles-grid">
+                    <!-- Bài báo 1 -->
+                    <div class="article-card">
+                        <div class="article-card-image">
+                            <img src="assets/images/news2.jpg" alt="Quang Hải - Cầu thủ xuất sắc nhất">
+                        </div>
+                        <div class="article-card-content">
+                            <h3 class="article-card-title">Quang Hải được vinh danh Cầu thủ xuất sắc nhất tháng</h3>
+                            <div class="article-card-meta">
+                                <span><i class="far fa-calendar-alt"></i> 10/06/2023</span>
+                                <span><i class="far fa-user"></i> Trần Văn B</span>
+                            </div>
+                            <p class="article-card-excerpt">Tiền vệ Nguyễn Quang Hải đã được bầu chọn là Cầu thủ xuất sắc nhất tháng 5 sau chuỗi trận ấn tượng.</p>
+                            <a href="news/article2.html" class="article-card-link">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- Bài báo 2 -->
+                    <div class="article-card">
+                        <div class="article-card-image">
+                            <img src="assets/images/news3.jpg" alt="V-League 2023">
+                        </div>
+                        <div class="article-card-content">
+                            <h3 class="article-card-title">V-League 2023: Những thay đổi quan trọng</h3>
+                            <div class="article-card-meta">
+                                <span><i class="far fa-calendar-alt"></i> 05/06/2023</span>
+                                <span><i class="far fa-user"></i> Lê Thị C</span>
+                            </div>
+                            <p class="article-card-excerpt">V-League 2023 sẽ có nhiều thay đổi quan trọng về thể thức thi đấu và quy định chuyển nhượng.</p>
+                            <a href="news/article3.html" class="article-card-link">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <!-- Bài báo 3 -->
+                    <div class="article-card">
+                        <div class="article-card-image">
+                            <img src="assets/images/stadium.jpg" alt="Xem thêm tin tức">
+                        </div>
+                        <div class="article-card-content">
+                            <h3 class="article-card-title">Xem thêm tin tức bóng đá</h3>
+                            <p class="article-card-excerpt">Khám phá thêm nhiều tin tức bóng đá hấp dẫn khác tại MindX News.</p>
+                            <a href="news.html" class="article-card-link">Xem tất cả <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="comments-section">
+                <h3>Bình luận</h3>
+                <div class="comment-form">
+                    <textarea id="comment-input" placeholder="Viết bình luận của bạn..."></textarea>
+                    <button id="submit-comment" class="btn-submit">Gửi</button>
+                </div>
+                <div id="comments-list">
+                    <!-- Comments will be added here dynamically -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>MindX News</h2>
+                    <p>Cập nhật tin tức bóng đá mới nhất, nhanh nhất và chính xác nhất từ các giải đấu hàng đầu trong nước và quốc tế.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Liên kết nhanh</h3>
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="news.html">Tin tức</a></li>
+                        <li><a href="#">Lịch thi đấu</a></li>
+                        <li><a href="#">Bình luận</a></li>
+                        <li><a href="#">Giải đấu</a></li>
+                        <li><a href="authenticate/signin.html">Đăng nhập</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Liên hệ</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 25 Nguyễn Gia Thiều, Bắc Ninh</p>
+                    <p><i class="fas fa-envelope"></i> info@mindxnews.com</p>
+                    <p><i class="fas fa-phone"></i> +84 123 456 789</p>
+                    <div class="social-icons">
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Đăng ký nhận tin</h3>
+                    <p>Đăng ký để nhận những tin tức bóng đá mới nhất và các ưu đãi đặc biệt từ MindX News.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Email của bạn">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 MindX News. Tất cả quyền được bảo lưu. | Thiết kế bởi <a href="#">MindX Team</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" title="Về đầu trang"><i class="fas fa-arrow-up"></i></button>
+
+    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/darkmode.js"></script>
+</body>
+</html>

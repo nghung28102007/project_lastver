@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký - MindX Football</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dark-mode-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+    <div class="signup-container">
+        <img src="/img/DALL·E 2025-03-09 14.15.41 - A sleek and modern logo for a football team called 'MindX Football Team'. The design should feature a bold and futuristic font for 'MindX', with the w.webp" alt="Logo" class="logo">
+        <h1>Đăng Ký</h1>
+        <form onsubmit="event.preventDefault(); signUp();">
+            <div class="form-group">
+                <input type="text" id="username" placeholder=" " required>
+                <label for="username">Tên đăng nhập</label>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" placeholder=" " required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                <label for="email">Email</label>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" placeholder=" " required>
+                <label for="password">Mật khẩu</label>
+            </div>
+            <button type="submit">Đăng Ký</button>
+        </form>
+        <p>Đã có tài khoản? <a href="signin.html">Đăng Nhập</a></p>
+        <a href="../interface/before.html" class="back-btn">Quay lại</a>
+    </div>
+
+    <div class="loading" id="loading">
+        <img alt="Loading...">
+    </div>
+
+    <script>
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        function signUp() {
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (username && email && password) {
+                showLoading();
+                setTimeout(() => {
+                    window.location.href = 'signin.html';
+                }, 1500);
+            }
+        }
+    </script>
+    <script src="../js/darkmode.js"></script>
+</body>
+</html>

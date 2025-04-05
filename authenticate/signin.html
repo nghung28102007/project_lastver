@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập - MindX Football</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body>
+    <div class="dark-mode-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+    <div class="signin-container">
+        <img src="/img/DALL·E 2025-03-09 14.15.41 - A sleek and modern logo for a football team called 'MindX Football Team'. The design should feature a bold and futuristic font for 'MindX', with the w.webp" alt="Logo" class="logo">
+        <h1>Đăng Nhập</h1>
+        <form onsubmit="event.preventDefault(); signIn();">
+            <div class="form-group">
+                <input type="text" id="username" placeholder=" " required>
+                <label for="username">Tên đăng nhập</label>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" placeholder=" " required>
+                <label for="password">Mật khẩu</label>
+            </div>
+            <button type="submit">Đăng Nhập</button>
+        </form>
+        <p>Chưa có tài khoản? <a href="signup.html">Đăng Ký</a></p>
+        <a href="/interface/before.html" class="back-btn">Quay lại</a>
+    </div>
+
+    <div class="loading" id="loading">
+        <img alt="Loading...">
+    </div>
+
+    <div id="success-modal" class="notification-modal">
+        <div class="notification-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <i class="fas fa-check-circle notification-icon"></i>
+            <h2 class="notification-title">Đăng Nhập Thành Công!</h2>
+            <p class="notification-message" id="modal-message">Chào mừng bạn đã quay trở lại!</p>
+            <button class="notification-button" onclick="closeModal()">Tiếp Tục</button>
+        </div>
+    </div>
+
+    <script>
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        function showModal(message) {
+            document.getElementById('modal-message').innerText = message;
+            document.getElementById('success-modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('success-modal').style.display = 'none';
+        }
+
+        function signIn() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username && password) {
+                showLoading();
+                setTimeout(() => {
+                    window.location.href = '../index.html';
+                }, 1500);
+            }
+        }
+    </script>
+    <script src="../js/darkmode.js"></script>
+</body>
+</html>
