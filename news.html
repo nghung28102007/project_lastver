@@ -7,13 +7,264 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js" rel="stylesheet">
+    <style>
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .news-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #fff;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .news-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .news-card:hover .news-image img {
+            transform: scale(1.05);
+        }
+        
+        /* Category badge - moved to right side and added blinking animation */
+        .news-category {
+            position: absolute;
+            top: 15px;
+            right: 15px; /* Changed from left to right */
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            z-index: 2;
+            animation: blink 1s infinite; /* Added blinking animation */
+        }
+        
+        /* Define the blinking animation */
+        @keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+        
+        .category-international {
+            background-color: #2196F3;
+        }
+        
+        .category-domestic {
+            background-color: #4CAF50;
+        }
+        
+        .category-transfer {
+            background-color: #FF9800;
+        }
+        
+        .news-content {
+            padding: 20px;
+        }
+        
+        .news-content h3 {
+            margin-top: 0;
+            font-size: 18px;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        
+        .news-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            color: #777;
+        }
+        
+        .read-more {
+            display: inline-block;
+            margin-top: 15px;
+            color: #f44336;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .read-more:hover {
+            color: #d32f2f;
+        }
+        
+        /* Theme toggle styles */
+        .theme-toggles {
+            display: flex !important;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .theme-toggles a {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: transparent;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggles a:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        #light-mode-btn {
+            color: #FF9800;
+        }
+        
+        #dark-mode-btn {
+            color: #2196F3;
+        }
+        
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #121212;
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode #main-header {
+            background-color: #1e1e1e;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-mode #main-nav a {
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .news-card {
+            background-color: #1e1e1e;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-mode .news-content h3 {
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .news-meta {
+            color: #aaa;
+        }
+        
+        body.dark-mode footer {
+            background-color: #1e1e1e;
+        }
+        
+        /* Dropdown menu styles */
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-toggle {
+            display: flex !important;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            min-width: 160px;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            padding: 8px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-menu li {
+            display: block;
+            width: 100%;
+        }
+        
+        .dropdown-menu a {
+            display: block !important;
+            padding: 8px 16px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+            font-size: 14px;
+        }
+        
+        .dropdown-menu a:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .dropdown-menu a.active {
+            background-color: #e0e0e0;
+            font-weight: 600;
+        }
+        
+        /* Dark mode for dropdown */
+        body.dark-mode .dropdown-menu {
+            background-color: #1e1e1e;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-mode .dropdown-menu a {
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .dropdown-menu a:hover {
+            background-color: #333;
+        }
+        
+        body.dark-mode .dropdown-menu a.active {
+            background-color: #444;
+        }
+        
+        @media (max-width: 992px) {
+            .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <header id="main-header">
         <div class="container">
             <div class="logo">
-                <h1 style="color: black;">Mind <span style="color: red;">X</span></h1>
+                <h1 style="color: black;">Mind<span style="color: red;">X</span> News</h1>
             </div>
             <nav id="main-nav">
                 <ul>
@@ -22,123 +273,186 @@
                     <li><a href="#">Lịch thi đấu</a></li>
                     <li><a href="#">Bình luận</a></li>
                     <li><a href="authenticate/signin.html">Đăng nhập</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="fas fa-globe"></i> Ngôn ngữ <i class="fas fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-lang="vi" class="language-option active">Tiếng Việt</a></li>
+                            <li><a href="#" data-lang="en" class="language-option">English</a></li>
+                        </ul>
+                    </li>
+                    <li class="theme-toggles">
+                        <a href="#" id="light-mode-btn"><i class="fas fa-sun"></i></a>
+                        <a href="#" id="dark-mode-btn"><i class="fas fa-moon"></i></a>
+                    </li>
                 </ul>
             </nav>
             <div class="toggle-menu">
                 <i class="fas fa-bars"></i>
-            </div>
-            <div class="dark-mode-toggle">
-                <i class="fas fa-moon"></i>
             </div>
         </div>
     </header>
 
     <main>
         <div class="container">
-            <h2>Tin tức bóng đá mới nhất</h2>
-            <div class="articles-grid">
-                <!-- Bài báo 1 -->
-                <div class="article-card">
-                    <div class="article-card-image">
-                        <img src="assets/images/stadium.jpg" alt="Sân vận động Mỹ Đình">
-                        <div class="article-category international">Bóng đá quốc tế</div>
-                    </div>
-                    <div class="article-card-content">
-                        <h3 class="article-card-title">Trận đấu nổi bật: Việt Nam vs Thái Lan</h3>
-                        <div class="article-card-meta">
-                            <span><i class="far fa-calendar-alt"></i> 15/06/2023</span>
-                            <span><i class="far fa-user"></i> Nguyễn Văn A</span>
+            <section class="news-section">
+                <h2>Tin tức bóng đá mới nhất</h2>
+                <div class="news-grid">
+                    <!-- Bài 1 - World Cup 2026 -->
+                    <div class="news-card">
+                        <div class="news-image">
+                            <span class="news-category category-international">Bóng đá quốc tế</span>
+                            <img src="assets/images/stadium.jpg" alt="Đội tuyển Việt Nam">
                         </div>
-                        <p class="article-card-excerpt">Đội tuyển Việt Nam sẽ đối đầu với Thái Lan trong trận cầu được mong đợi nhất vòng loại World Cup 2026 khu vực châu Á.</p>
-                        <a href="news/article1.html" class="article-card-link">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        <div class="news-content">
+                            <h3>Đội tuyển Việt Nam sẵn sàng cho vòng loại World Cup 2026</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 15/01/2025</span>
+                                <span><i class="far fa-user"></i> Nguyễn Văn A</span>
+                            </div>
+                            <p>Đội tuyển Việt Nam hoàn tất công tác chuẩn bị cho chiến dịch vòng loại World Cup 2026...</p>
+                            <a href="news/article4.html" class="read-more">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Bài 2 - Champions League -->
+                    <div class="news-card">
+                        <div class="news-image">
+                            <span class="news-category category-international">Bóng đá quốc tế</span>
+                            <img src="assets/images/stadium.jpg" alt="Champions League">
+                        </div>
+                        <div class="news-content">
+                            <h3>Champions League 2025: Cuộc đua nghẹt thở vào vòng bán kết</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 10/04/2025</span>
+                                <span><i class="far fa-user"></i> Trần Văn B</span>
+                            </div>
+                            <p>Mùa giải Champions League 2024-2025 đang bước vào giai đoạn gay cấn nhất...</p>
+                            <a href="news/article5.html" class="read-more">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Bài 3 - Premier League -->
+                    <div class="news-card">
+                        <div class="news-image">
+                            <span class="news-category category-domestic">Bóng đá trong nước</span>
+                            <img src="assets/images/stadium.jpg" alt="Premier League">
+                        </div>
+                        <div class="news-content">
+                            <h3>Premier League 2024-2025: Cuộc đua vô địch căng thẳng</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 20/03/2025</span>
+                                <span><i class="far fa-user"></i> Lê Thị C</span>
+                            </div>
+                            <p>Cuộc đua vô địch Premier League đang diễn ra vô cùng gay cấn...</p>
+                            <a href="news/article6.html" class="read-more">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Bài 4 - La Liga -->
+                    <div class="news-card">
+                        <div class="news-image">
+                            <span class="news-category category-domestic">Bóng đá trong nước</span>
+                            <img src="assets/images/stadium.jpg" alt="La Liga">
+                        </div>
+                        <div class="news-content">
+                            <h3>La Liga 2024-2025: Real Madrid tiến gần đến ngôi vương</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 25/03/2025</span>
+                                <span><i class="far fa-user"></i> Phạm Văn D</span>
+                            </div>
+                            <p>Real Madrid đang cho thấy phong độ ấn tượng tại La Liga...</p>
+                            <a href="news/article7.html" class="read-more">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Bài 5 - Serie A -->
+                    <div class="news-card">
+                        <div class="news-image">
+                            <span class="news-category category-domestic">Bóng đá trong nước</span>
+                            <img src="assets/images/stadium.jpg" alt="Serie A">
+                        </div>
+                        <div class="news-content">
+                            <h3>Serie A 2024-2025: Inter Milan thống trị giải đấu</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 28/03/2025</span>
+                                <span><i class="far fa-user"></i> Hoàng Văn E</span>
+                            </div>
+                            <p>Inter Milan đang thể hiện phong độ vô cùng ấn tượng tại Serie A...</p>
+                            <a href="news/article8.html" class="read-more">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Bài 6 - Bundesliga -->
+                    <div class="news-card">
+                        <div class="news-image">
+                            <span class="news-category category-domestic">Bóng đá trong nước</span>
+                            <img src="assets/images/stadium.jpg" alt="Bundesliga">
+                        </div>
+                        <div class="news-content">
+                            <h3>Bundesliga 2024-2025: Cuộc chiến nảy lửa</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 30/03/2025</span>
+                                <span><i class="far fa-user"></i> Nguyễn Thị F</span>
+                            </div>
+                            <p>Cuộc đua song mã giữa Bayern Munich và Bayer Leverkusen...</p>
+                            <a href="news/article9.html" class="read-more">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Bài 7 - Tin chuyển nhượng -->
+                    <div class="news-card">
+                        <div class="news-image">
+                            <span class="news-category category-transfer">Chuyển nhượng</span>
+                            <img src="assets/images/news2.jpg" alt="Chuyển nhượng">
+                        </div>
+                        <div class="news-content">
+                            <h3>Thị trường chuyển nhượng Hè 2025 sôi động</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 01/04/2025</span>
+                                <span><i class="far fa-user"></i> Trần Thị G</span>
+                            </div>
+                            <p>Các CLB lớn đang chuẩn bị cho kỳ chuyển nhượng Hè 2025...</p>
+                            <a href="news/article1.html" class="read-more">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Bài 8 - Cầu thủ xuất sắc -->
+                    <div class="news-card">
+                        <div class="news-image">
+                            <span class="news-category category-domestic">Bóng đá trong nước</span>
+                            <img src="assets/images/news2.jpg" alt="Cầu thủ xuất sắc">
+                        </div>
+                        <div class="news-content">
+                            <h3>Top 10 cầu thủ xuất sắc nhất năm 2025</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 05/04/2025</span>
+                                <span><i class="far fa-user"></i> Lê Văn H</span>
+                            </div>
+                            <p>Danh sách 10 cầu thủ xuất sắc nhất năm 2025...</p>
+                            <a href="news/article2.html" class="read-more">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Bài 9 - Giải đấu mới -->
+                    <div class="news-card">
+                        <div class="news-image">
+                            <span class="news-category category-international">Bóng đá quốc tế</span>
+                            <img src="assets/images/news3.jpg" alt="Giải đấu mới">
+                        </div>
+                        <div class="news-content">
+                            <h3>FIFA công bố format mới cho Club World Cup 2025</h3>
+                            <div class="news-meta">
+                                <span><i class="far fa-calendar-alt"></i> 08/04/2025</span>
+                                <span><i class="far fa-user"></i> Phạm Thị I</span>
+                            </div>
+                            <p>FIFA chính thức công bố thể thức mới cho Club World Cup...</p>
+                            <a href="news/article3.html" class="read-more">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- Bài báo 2 -->
-                <div class="article-card">
-                    <div class="article-card-image">
-                        <img src="assets/images/news2.jpg" alt="Cầu thủ xuất sắc">
-                        <div class="article-category national">Bóng đá trong nước</div>
-                    </div>
-                    <div class="article-card-content">
-                        <h3 class="article-card-title">Quang Hải được vinh danh Cầu thủ xuất sắc nhất tháng</h3>
-                        <div class="article-card-meta">
-                            <span><i class="far fa-calendar-alt"></i> 10/06/2023</span>
-                            <span><i class="far fa-user"></i> Trần Văn B</span>
-                        </div>
-                        <p class="article-card-excerpt">Tiền vệ Nguyễn Quang Hải đã được bầu chọn là Cầu thủ xuất sắc nhất tháng 5 sau chuỗi trận ấn tượng.</p>
-                        <a href="news/article2.html" class="article-card-link">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                
-                <!-- Bài báo 3 -->
-                <div class="article-card">
-                    <div class="article-card-image">
-                        <img src="assets/images/news3.jpg" alt="Giải đấu mới">
-                        <div class="article-category national">Bóng đá trong nước</div>
-                    </div>
-                    <div class="article-card-content">
-                        <h3 class="article-card-title">V-League 2023: Những thay đổi quan trọng</h3>
-                        <div class="article-card-meta">
-                            <span><i class="far fa-calendar-alt"></i> 05/06/2023</span>
-                            <span><i class="far fa-user"></i> Lê Thị C</span>
-                        </div>
-                        <p class="article-card-excerpt">V-League 2023 sẽ có nhiều thay đổi quan trọng về thể thức thi đấu và quy định chuyển nhượng.</p>
-                        <a href="news/article3.html" class="article-card-link">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                
-                <!-- Bài báo 4 -->
-                <div class="article-card">
-                    <div class="article-card-image">
-                        <img src="assets/images/stadium.jpg" alt="Đội tuyển nữ">
-                        <div class="article-category international">Bóng đá quốc tế</div>
-                    </div>
-                    <div class="article-card-content">
-                        <h3 class="article-card-title">Đội tuyển nữ Việt Nam chuẩn bị cho World Cup</h3>
-                        <div class="article-card-meta">
-                            <span><i class="far fa-calendar-alt"></i> 01/06/2023</span>
-                            <span><i class="far fa-user"></i> Phạm Văn D</span>
-                        </div>
-                        <p class="article-card-excerpt">Đội tuyển nữ Việt Nam đang tích cực tập luyện để chuẩn bị cho World Cup nữ 2023.</p>
-                        <a href="news/article4.html" class="article-card-link">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                
-                <!-- Bài báo 5 -->
-                <div class="article-card">
-                    <div class="article-card-image">
-                        <img src="assets/images/news2.jpg" alt="Chuyển nhượng">
-                        <div class="article-category transfer">Chuyển nhượng</div>
-                    </div>
-                    <div class="article-card-content">
-                        <h3 class="article-card-title">Thị trường chuyển nhượng hè 2023: Những thương vụ đáng chú ý</h3>
-                        <div class="article-card-meta">
-                            <span><i class="far fa-calendar-alt"></i> 28/05/2023</span>
-                            <span><i class="far fa-user"></i> Hoàng Văn E</span>
-                        </div>
-                        <p class="article-card-excerpt">Điểm qua những thương vụ chuyển nhượng đáng chú ý của các câu lạc bộ V-League trong kỳ chuyển nhượng hè 2023.</p>
-                        <a href="news/article5.html" class="article-card-link">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                
-                <!-- Bài báo 6 -->
-                <div class="article-card">
-                    <div class="article-card-image">
-                        <img src="assets/images/news3.jpg" alt="Huấn luyện viên mới">
-                        <div class="article-category national">Bóng đá trong nước</div>
-                    </div>
-                    <div class="article-card-content">
-                        <h3 class="article-card-title">Huấn luyện viên mới của đội tuyển Việt Nam</h3>
-                        <div class="article-card-meta">
-                            <span><i class="far fa-calendar-alt"></i> 25/05/2023</span>
-                            <span><i class="far fa-user"></i> Nguyễn Thị F</span>
-                        </div>
-                        <p class="article-card-excerpt">Liên đoàn Bóng đá Việt Nam (VFF) đang xem xét các ứng viên cho vị trí huấn luyện viên trưởng đội tuyển quốc gia.</p>
-                        <a href="news/article6.html" class="article-card-link">Đọc tiếp <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
+            </section>
         </div>
     </main>
 
@@ -147,7 +461,7 @@
             <div class="footer-content">
                 <div class="footer-logo">
                     <h2>MindX News</h2>
-                    <p>Tin tức bóng đá hàng đầu Việt Nam</p>
+                    <p>Cập nhật tin tức bóng đá mới nhất, nhanh nhất và chính xác nhất.</p>
                 </div>
                 <div class="footer-links">
                     <h3>Liên kết nhanh</h3>
@@ -158,28 +472,82 @@
                         <li><a href="#">Bình luận</a></li>
                     </ul>
                 </div>
-                <div class="footer-contact">
-                    <h3>Liên hệ</h3>
-                    <p><i class="fas fa-envelope"></i> info@mindxnews.com</p>
-                    <p><i class="fas fa-phone"></i> +84 123 456 789</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 MindX News. Tất cả quyền được bảo lưu.</p>
+                <p>&copy; 2025 MindX News. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <button id="back-to-top" title="Về đầu trang"><i class="fas fa-arrow-up"></i></button>
-
-    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
     <script src="js/main.js"></script>
     <script src="js/darkmode.js"></script>
+    <script src="js/translations.js"></script>
+    <script>
+        // Theme toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const darkModeBtn = document.getElementById('dark-mode-btn');
+            const lightModeBtn = document.getElementById('light-mode-btn');
+            
+            // Check if dark mode is already enabled (from localStorage)
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+            }
+            
+            // Dark mode button click event
+            darkModeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            });
+            
+            // Light mode button click event
+            lightModeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            });
+
+            // Language dropdown functionality
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            const languageOptions = document.querySelectorAll('.language-option');
+            
+            // Toggle dropdown menu
+            dropdownToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                dropdownMenu.classList.toggle('show');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dropdown')) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+            
+            // Language selection
+            languageOptions.forEach(option => {
+                option.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Get selected language
+                    const selectedLang = this.getAttribute('data-lang');
+                    
+                    // Update active class
+                    languageOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Store selected language in localStorage
+                    setLanguage(selectedLang);
+                    
+                    // Apply translations based on selected language
+                    applyTranslations(selectedLang);
+                    
+                    // Close dropdown
+                    dropdownMenu.classList.remove('show');
+                });
+            });
+        });
+    </script>
 </body>
 </html>

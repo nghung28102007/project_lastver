@@ -1,27 +1,12 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trận đấu nổi bật: Việt Nam vs Thái Lan - MindX News</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js" rel="stylesheet">
-</head>
-<body>
-    <header id="main-header">
-        <div class="container">
-            <div class="logo">
-                <h1>MindX News</h1>
-            </div>
-            <nav id="main-nav">
-                <ul>
-                    <li><a href="../index.html">Trang chủ</a></li>
-                    <li><a href="../news.html" class="active">Tin tức</a></li>
-                    <li><a href="#">Lịch thi đấu</a></li>
-                    <li><a href="#">Bình luận</a></li>
-                    <li><a href="../authenticate/signin.html">Đăng nhập</a></li>
+// Script to update all article HTML files with language toggle and dark mode
+const fs = require('fs');
+const path = require('path');
+
+// Directory containing article files
+const articlesDir = path.join(__dirname, 'news');
+
+// Get the dropdown menu HTML
+const dropdownMenuHTML = `
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle">
                             <i class="fas fa-globe"></i> Ngôn ngữ <i class="fas fa-caret-down"></i>
@@ -34,100 +19,10 @@
                     <li class="theme-toggles">
                         <a href="#" id="light-mode-btn"><i class="fas fa-sun"></i></a>
                         <a href="#" id="dark-mode-btn"><i class="fas fa-moon"></i></a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="toggle-menu">
-                <i class="fas fa-bars"></i>
-            </div>
-        </div>
-    </header>
+                    </li>`;
 
-    <main>
-        <div class="container">
-            <article class="main-article">
-                <h2 class="article-title">Trận đấu nổi bật: Việt Nam vs Thái Lan</h2>
-                <div class="article-meta">
-                    <span class="article-date"><i class="far fa-calendar-alt"></i> 15/06/2023</span>
-                    <span class="article-author"><i class="far fa-user"></i> Nguyễn Văn A</span>
-                </div>
-                <div class="article-image">
-                    <img src="../assets/images/stadium.jpg" alt="Sân vận động Mỹ Đình">
-                </div>
-                <div class="article-content">
-                    <p>Đội tuyển Việt Nam sẽ đối đầu với Thái Lan trong trận cầu được mong đợi nhất vòng loại World Cup 2026 khu vực châu Á. Trận đấu diễn ra vào 19h30 tối nay tại sân vận động Mỹ Đình, Hà Nội.</p>
-                    
-                    <h3>Đội hình dự kiến</h3>
-                    <p>HLV Park Hang-seo đã công bố đội hình ra sân với nhiều bất ngờ. Tiền đạo Nguyễn Công Phượng sẽ đá chính sau thời gian dài ngồi dự bị. Hàng thủ được củng cố với sự trở lại của Đỗ Duy Mạnh.</p>
-                    
-                    <h3>Phân tích chiến thuật</h3>
-                    <p>Đội tuyển Việt Nam nhiều khả năng sẽ áp dụng lối chơi phòng ngự phản công quen thuộc. Với tốc độ của Văn Toàn và kỹ thuật của Quang Hải, đội tuyển có thể tạo ra những đợt tấn công nguy hiểm.</p>
-                    
-                    <p>Trong khi đó, đội tuyển Thái Lan với HLV Mano Polking sẽ chơi tấn công áp đặt với sơ đồ 4-3-3. Chanathip Songkrasin vẫn là ngôi sao được kỳ vọng sẽ tỏa sáng bên phía đội khách.</p>
-                    
-                    <h3>Lịch sử đối đầu</h3>
-                    <p>Trong 10 trận gần nhất, Việt Nam thắng 3, hòa 4 và thua 3 trước Thái Lan. Trận đấu gần nhất giữa hai đội kết thúc với tỷ số hòa 0-0 tại AFF Cup 2022.</p>
-                    
-                    <h3>Dự đoán kết quả</h3>
-                    <p>Với lợi thế sân nhà và phong độ ổn định gần đây, đội tuyển Việt Nam được đánh giá cao hơn trong trận đấu này. Nhiều chuyên gia dự đoán một chiến thắng sát nút 1-0 hoặc 2-1 cho đội chủ nhà.</p>
-                    
-                    <h3>Thông tin phát sóng</h3>
-                    <p>Trận đấu sẽ được phát sóng trực tiếp trên các kênh VTV6, VTV5 và ứng dụng VTV Go từ 19h00, với 30 phút bình luận trước trận đấu.</p>
-                </div>
-            </article>
-            
-            <section class="comments-section">
-                <h3>Bình luận</h3>
-                <div class="comment-form">
-                    <textarea id="comment-input" placeholder="Viết bình luận của bạn..."></textarea>
-                    <button id="submit-comment" class="btn-submit">Gửi</button>
-                </div>
-                <div id="comments-list">
-                    <!-- Comments will be added here dynamically -->
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <h2>MindX News</h2>
-                    <p>Tin tức bóng đá hàng đầu Việt Nam</p>
-                </div>
-                <div class="footer-links">
-                    <h3>Liên kết nhanh</h3>
-                    <ul>
-                        <li><a href="../index.html">Trang chủ</a></li>
-                        <li><a href="../news.html">Tin tức</a></li>
-                        <li><a href="#">Lịch thi đấu</a></li>
-                        <li><a href="#">Bình luận</a></li>
-                    </ul>
-                </div>
-                <div class="footer-contact">
-                    <h3>Liên hệ</h3>
-                    <p><i class="fas fa-envelope"></i> info@mindxnews.com</p>
-                    <p><i class="fas fa-phone"></i> +84 123 456 789</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2023 MindX News. Tất cả quyền được bảo lưu.</p>
-            </div>
-        </div>
-    </footer>
-
-    <button id="back-to-top" title="Về đầu trang"><i class="fas fa-arrow-up"></i></button>
-
-    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
-    <script src="../js/main.js"></script>
-    <script src="../js/darkmode.js"></script>
+// JavaScript code to add
+const scriptToAdd = `
     <script src="../js/translations.js"></script>
     <script>
         // Theme toggle and language switching functionality
@@ -198,7 +93,7 @@
 
             // Add CSS for dropdown and theme toggle
             const style = document.createElement('style');
-            style.textContent = `
+            style.textContent = \`
                 /* Dropdown menu styles */
                 .dropdown {
                     position: relative;
@@ -345,9 +240,55 @@
                 body.dark-mode .btn-submit {
                     background-color: #2196F3;
                 }
-            `;
+            \`;
             document.head.appendChild(style);
         });
-    </script>
-</body>
-</html>
+    </script>`;
+
+// Process all article HTML files
+fs.readdir(articlesDir, (err, files) => {
+    if (err) {
+        console.error('Error reading directory:', err);
+        return;
+    }
+
+    files.filter(file => file.endsWith('.html') && file !== 'article1.html').forEach(file => {
+        const filePath = path.join(articlesDir, file);
+        
+        fs.readFile(filePath, 'utf8', (err, data) => {
+            if (err) {
+                console.error(`Error reading file ${file}:`, err);
+                return;
+            }
+
+            // Add dropdown menu to navigation
+            let updatedContent = data.replace(
+                /<li><a href="\.\.\/authenticate\/signin\.html">Đăng nhập<\/a><\/li>/,
+                '<li><a href="../authenticate/signin.html">Đăng nhập</a></li>' + dropdownMenuHTML
+            );
+
+            // Remove old dark-mode-toggle
+            updatedContent = updatedContent.replace(
+                /\s*<div class="dark-mode-toggle">\s*<i class="fas fa-moon"><\/i>\s*<\/div>/,
+                ''
+            );
+
+            // Add translations.js script and theme toggle script before closing body tag
+            updatedContent = updatedContent.replace(
+                /<script src="\.\.\/js\/darkmode\.js"><\/script>\s*<\/body>/,
+                '<script src="../js/darkmode.js"></script>' + scriptToAdd + '</body>'
+            );
+
+            // Write updated content back to file
+            fs.writeFile(filePath, updatedContent, 'utf8', err => {
+                if (err) {
+                    console.error(`Error writing file ${file}:`, err);
+                    return;
+                }
+                console.log(`Successfully updated ${file}`);
+            });
+        });
+    });
+});
+
+console.log('Update script started. Processing article files...');

@@ -22,6 +22,19 @@
                     <li><a href="#">Lịch thi đấu</a></li>
                     <li><a href="#">Bình luận</a></li>
                     <li><a href="authenticate/signin.html">Đăng nhập</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="fas fa-globe"></i> Ngôn ngữ <i class="fas fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-lang="vi" class="language-option active">Tiếng Việt</a></li>
+                            <li><a href="#" data-lang="en" class="language-option">English</a></li>
+                        </ul>
+                    </li>
+                    <li class="theme-toggles">
+                        <a href="#" id="light-mode-btn"><i class="fas fa-sun"></i></a>
+                        <a href="#" id="dark-mode-btn"><i class="fas fa-moon"></i></a>
+                    </li>
                 </ul>
             </nav>
             <div class="weather-header" id="weather-header">
@@ -32,9 +45,6 @@
             </div>
             <div class="toggle-menu">
                 <i class="fas fa-bars"></i>
-            </div>
-            <div class="dark-mode-toggle">
-                <i class="fas fa-moon"></i>
             </div>
         </div>
     </header>
@@ -185,5 +195,538 @@
     <script src="js/api.js"></script>
     <script src="js/main.js"></script>
     <script src="js/darkmode.js"></script>
+    <script src="js/translations.js"></script>
+    <script>
+        // Theme toggle and language switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dark mode functionality
+            const darkModeBtn = document.getElementById('dark-mode-btn');
+            const lightModeBtn = document.getElementById('light-mode-btn');
+            const logoText = document.querySelector('.logo h1');
+            const mindText = logoText.childNodes[0]; // "Mind" text
+            const newsText = logoText.childNodes[2]; // "News" text
+            
+            // Check if dark mode is already enabled (from localStorage)
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                // Make logo text white in dark mode
+                if (logoText) {
+                    mindText.nodeValue = 'Mind';
+                    mindText.parentNode.setAttribute('style', 'color: white;');
+                    newsText.nodeValue = ' News';
+                }
+            }
+            
+            // Dark mode button click event
+            darkModeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+                
+                // Update logo color to white
+                if (logoText) {
+                    mindText.nodeValue = 'Mind';
+                    mindText.parentNode.setAttribute('style', 'color: white;');
+                    newsText.nodeValue = ' News';
+                }
+            });
+            
+            // Light mode button click event
+            lightModeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+                
+                // Reset logo color to black
+                if (logoText) {
+                    mindText.nodeValue = 'Mind';
+                    mindText.parentNode.setAttribute('style', 'color: black;');
+                    newsText.nodeValue = ' News';
+                }
+            });
+
+            // Language dropdown functionality
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            const languageOptions = document.querySelectorAll('.language-option');
+            
+            // Toggle dropdown menu
+            dropdownToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                dropdownMenu.classList.toggle('show');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.dropdown')) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+            
+            // Language selection
+            languageOptions.forEach(option => {
+                option.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Get selected language
+                    const selectedLang = this.getAttribute('data-lang');
+                    
+                    // Update active class
+                    languageOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Store selected language in localStorage
+                    localStorage.setItem('language', selectedLang);
+                    
+                    // Apply translations based on selected language
+                    applyTranslations(selectedLang);
+                    
+                    // Close dropdown
+                    dropdownMenu.classList.remove('show');
+                });
+            });
+
+            // Apply translations if language is already set
+            const savedLanguage = localStorage.getItem('language');
+            if (savedLanguage) {
+                // Update active class
+                languageOptions.forEach(opt => {
+                    if (opt.getAttribute('data-lang') === savedLanguage) {
+                        opt.classList.add('active');
+                    } else {
+                        opt.classList.remove('active');
+                    }
+                });
+                
+                // Apply translations
+                applyTranslations(savedLanguage);
+            }
+
+            // Function to apply translations
+            function applyTranslations(lang) {
+                if (!translations || !translations[lang]) {
+                    console.error('Translations not available');
+                    return;
+                }
+                
+                // Translate navigation
+                document.querySelector('a[href="index.html"]').textContent = translations[lang].home || 'Trang chủ';
+                document.querySelector('a[href="news.html"]').textContent = translations[lang].news || 'Tin tức';
+                
+                // Translate schedule and comments menu items
+                const menuItems = document.querySelectorAll('#main-nav ul li a');
+                for (let i = 0; i < menuItems.length; i++) {
+                    if (menuItems[i].textContent.includes('Lịch thi đấu') || menuItems[i].textContent.includes('Match Schedule')) {
+                        menuItems[i].textContent = translations[lang].schedule;
+                    } else if (menuItems[i].textContent.includes('Bình luận') || menuItems[i].textContent.includes('Comments')) {
+                        menuItems[i].textContent = translations[lang].comments;
+                    } else if (menuItems[i].textContent.includes('Đăng nhập') || menuItems[i].textContent.includes('Login')) {
+                        menuItems[i].textContent = translations[lang].login;
+                    }
+                }
+
+                // Translate main article
+                const mainArticleTitle = document.querySelector('.article-title');
+                const mainArticleContent = document.querySelectorAll('.article-content > p');
+                const readMoreBtn = document.querySelector('#read-more');
+                
+                if (mainArticleTitle) {
+                    if (lang === 'en') {
+                        mainArticleTitle.textContent = 'Featured Match: Vietnam vs Thailand';
+                    } else {
+                        mainArticleTitle.textContent = 'Trận đấu nổi bật: Việt Nam vs Thái Lan';
+                    }
+                }
+                
+                if (mainArticleContent.length > 0) {
+                    if (lang === 'en') {
+                        mainArticleContent[0].textContent = 'Vietnam national team will face Thailand in the most anticipated match of the World Cup 2026 qualification round in the Asian region. The match will take place tonight at 7:30 PM at My Dinh Stadium, Hanoi.';
+                    } else {
+                        mainArticleContent[0].textContent = 'Đội tuyển Việt Nam sẽ đối đầu với Thái Lan trong trận cầu được mong đợi nhất vòng loại World Cup 2026 khu vực châu Á. Trận đấu diễn ra vào 19h30 tối nay tại sân vận động Mỹ Đình, Hà Nội.';
+                    }
+                }
+                
+                // Translate headings in main article
+                const articleHeadings = document.querySelectorAll('.article-content h3');
+                if (articleHeadings.length > 0) {
+                    if (lang === 'en') {
+                        articleHeadings[0].textContent = 'Expected lineup';
+                    } else {
+                        articleHeadings[0].textContent = 'Đội hình dự kiến';
+                    }
+                }
+                
+                // Translate hidden content
+                const hiddenContentHeadings = document.querySelectorAll('.article-hidden h3');
+                if (hiddenContentHeadings.length > 0) {
+                    if (lang === 'en') {
+                        hiddenContentHeadings[0].textContent = 'Tactical analysis';
+                        if (hiddenContentHeadings[1]) hiddenContentHeadings[1].textContent = 'Head-to-head history';
+                        if (hiddenContentHeadings[2]) hiddenContentHeadings[2].textContent = 'Match prediction';
+                    } else {
+                        hiddenContentHeadings[0].textContent = 'Phân tích chiến thuật';
+                        if (hiddenContentHeadings[1]) hiddenContentHeadings[1].textContent = 'Lịch sử đối đầu';
+                        if (hiddenContentHeadings[2]) hiddenContentHeadings[2].textContent = 'Dự đoán kết quả';
+                    }
+                }
+                
+                // Translate read more button
+                if (readMoreBtn) {
+                    if (lang === 'en') {
+                        readMoreBtn.innerHTML = 'Read more <i class="fas fa-chevron-down"></i>';
+                    } else {
+                        readMoreBtn.innerHTML = 'Xem thêm <i class="fas fa-chevron-down"></i>';
+                    }
+                }
+
+                // Translate "More News" section
+                const moreArticlesHeading = document.querySelector('.more-articles h2');
+                if (moreArticlesHeading) {
+                    if (lang === 'en') {
+                        moreArticlesHeading.textContent = 'More News';
+                    } else {
+                        moreArticlesHeading.textContent = 'Tin tức khác';
+                    }
+                }
+                
+                // Translate news cards
+                const articleCards = document.querySelectorAll('.article-card');
+                if (articleCards.length > 0) {
+                    // First card
+                    if (articleCards[0]) {
+                        const title = articleCards[0].querySelector('.article-card-title');
+                        const excerpt = articleCards[0].querySelector('.article-card-excerpt');
+                        const link = articleCards[0].querySelector('.article-card-link');
+                        
+                        if (title && excerpt && link) {
+                            if (lang === 'en') {
+                                title.textContent = 'Top 10 Best Football Players of 2023';
+                                excerpt.textContent = 'The list of the 10 most outstanding football players of 2023 has been officially announced.';
+                                link.innerHTML = 'Read more <i class="fas fa-arrow-right"></i>';
+                            } else {
+                                title.textContent = 'Top 10 cầu thủ xuất sắc nhất năm 2023';
+                                excerpt.textContent = 'Danh sách 10 cầu thủ bóng đá xuất sắc nhất năm 2023 vừa chính thức được công bố.';
+                                link.innerHTML = 'Đọc tiếp <i class="fas fa-arrow-right"></i>';
+                            }
+                        }
+                    }
+                    
+                    // Second card
+                    if (articleCards[1]) {
+                        const title = articleCards[1].querySelector('.article-card-title');
+                        const excerpt = articleCards[1].querySelector('.article-card-excerpt');
+                        const link = articleCards[1].querySelector('.article-card-link');
+                        
+                        if (title && excerpt && link) {
+                            if (lang === 'en') {
+                                title.textContent = 'V-League 2023: Important Changes';
+                                excerpt.textContent = 'The 2023 V-League season will have many significant changes in format and rules.';
+                                link.innerHTML = 'Read more <i class="fas fa-arrow-right"></i>';
+                            } else {
+                                title.textContent = 'V-League 2023: Những thay đổi quan trọng';
+                                excerpt.textContent = 'Mùa giải V-League 2023 sẽ có nhiều thay đổi đáng kể về thể thức và luật chơi.';
+                                link.innerHTML = 'Đọc tiếp <i class="fas fa-arrow-right"></i>';
+                            }
+                        }
+                    }
+                    
+                    // Third card (View all)
+                    if (articleCards[2]) {
+                        const title = articleCards[2].querySelector('.article-card-title');
+                        const excerpt = articleCards[2].querySelector('.article-card-excerpt');
+                        const link = articleCards[2].querySelector('.article-card-link');
+                        
+                        if (title && excerpt && link) {
+                            if (lang === 'en') {
+                                title.textContent = 'View more football news';
+                                excerpt.textContent = 'Discover more exciting football news at MindX News.';
+                                link.innerHTML = 'View all <i class="fas fa-arrow-right"></i>';
+                            } else {
+                                title.textContent = 'Xem thêm tin tức bóng đá';
+                                excerpt.textContent = 'Khám phá thêm nhiều tin tức bóng đá hấp dẫn khác tại MindX News.';
+                                link.innerHTML = 'Xem tất cả <i class="fas fa-arrow-right"></i>';
+                            }
+                        }
+                    }
+                }
+
+                // Translate comments section
+                const commentsHeading = document.querySelector('.comments-section h3');
+                const commentInput = document.querySelector('#comment-input');
+                const submitBtn = document.querySelector('#submit-comment');
+                
+                if (commentsHeading) {
+                    if (lang === 'en') {
+                        commentsHeading.textContent = 'Comments';
+                    } else {
+                        commentsHeading.textContent = 'Bình luận';
+                    }
+                }
+                
+                if (commentInput) {
+                    if (lang === 'en') {
+                        commentInput.setAttribute('placeholder', 'Write your comment...');
+                    } else {
+                        commentInput.setAttribute('placeholder', 'Viết bình luận của bạn...');
+                    }
+                }
+                
+                if (submitBtn) {
+                    if (lang === 'en') {
+                        submitBtn.textContent = 'Send';
+                    } else {
+                        submitBtn.textContent = 'Gửi';
+                    }
+                }
+
+                // Translate footer
+                updateFooter(lang);
+            }
+
+            // Common footer translation
+            function updateFooter(lang) {
+                // Footer section headings
+                const footerHeadings = document.querySelectorAll('footer h3');
+                const footerLogo = document.querySelector('.footer-logo h2');
+                const footerDesc = document.querySelector('.footer-logo p');
+                
+                if (footerHeadings.length >= 3) {
+                    if (lang === 'en') {
+                        footerHeadings[0].textContent = 'Quick Links';
+                        footerHeadings[1].textContent = 'Contact';
+                        footerHeadings[2].textContent = 'Subscribe to newsletter';
+                    } else {
+                        footerHeadings[0].textContent = 'Liên kết nhanh';
+                        footerHeadings[1].textContent = 'Liên hệ';
+                        footerHeadings[2].textContent = 'Đăng ký nhận tin';
+                    }
+                }
+                
+                if (footerDesc) {
+                    if (lang === 'en') {
+                        footerDesc.textContent = 'Get the latest and most accurate football news from top domestic and international leagues.';
+                    } else {
+                        footerDesc.textContent = 'Cập nhật tin tức bóng đá mới nhất, nhanh nhất và chính xác nhất từ các giải đấu hàng đầu trong nước và quốc tế.';
+                    }
+                }
+                
+                // Footer links
+                const footerLinks = document.querySelectorAll('.footer-links ul li a');
+                if (footerLinks.length >= 6) {
+                    if (lang === 'en') {
+                        footerLinks[0].textContent = 'Home';
+                        footerLinks[1].textContent = 'News';
+                        footerLinks[2].textContent = 'Match Schedule';
+                        footerLinks[3].textContent = 'Comments';
+                        footerLinks[4].textContent = 'Tournaments';
+                        footerLinks[5].textContent = 'Login';
+                    } else {
+                        footerLinks[0].textContent = 'Trang chủ';
+                        footerLinks[1].textContent = 'Tin tức';
+                        footerLinks[2].textContent = 'Lịch thi đấu';
+                        footerLinks[3].textContent = 'Bình luận';
+                        footerLinks[4].textContent = 'Giải đấu';
+                        footerLinks[5].textContent = 'Đăng nhập';
+                    }
+                }
+                
+                // Newsletter section
+                const newsletterDesc = document.querySelector('.footer-newsletter p');
+                const newsletterInput = document.querySelector('.newsletter-form input');
+                
+                if (newsletterDesc) {
+                    if (lang === 'en') {
+                        newsletterDesc.textContent = 'Subscribe to receive the latest football news and special offers from MindX News.';
+                    } else {
+                        newsletterDesc.textContent = 'Đăng ký để nhận những tin tức bóng đá mới nhất và các ưu đãi đặc biệt từ MindX News.';
+                    }
+                }
+                
+                if (newsletterInput) {
+                    if (lang === 'en') {
+                        newsletterInput.setAttribute('placeholder', 'Your email');
+                    } else {
+                        newsletterInput.setAttribute('placeholder', 'Email của bạn');
+                    }
+                }
+                
+                // Copyright
+                const copyright = document.querySelector('.footer-bottom p');
+                if (copyright) {
+                    if (lang === 'en') {
+                        copyright.innerHTML = '&copy; 2023 MindX News. All rights reserved. | Designed by <a href="#">MindX Team</a>';
+                    } else {
+                        copyright.innerHTML = '&copy; 2023 MindX News. Tất cả quyền được bảo lưu. | Thiết kế bởi <a href="#">MindX Team</a>';
+                    }
+                }
+            }
+        });
+    </script>
+    
+    <script>
+        // Add CSS for dropdown and theme toggle
+        const style = document.createElement('style');
+        style.textContent = `
+            /* Dropdown menu styles */
+            .dropdown {
+                position: relative;
+            }
+            
+            .dropdown-toggle {
+                display: flex !important;
+                align-items: center;
+                gap: 5px;
+            }
+            
+            .dropdown-menu {
+                position: absolute;
+                top: 100%;
+                right: 0;
+                min-width: 160px;
+                background-color: #fff;
+                border-radius: 4px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                z-index: 100;
+                padding: 8px 0;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(10px);
+                transition: all 0.3s ease;
+            }
+            
+            .dropdown-menu.show {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+            
+            .dropdown-menu li {
+                display: block;
+                width: 100%;
+            }
+            
+            .dropdown-menu a {
+                display: block !important;
+                padding: 8px 16px;
+                color: #333;
+                text-decoration: none;
+                transition: background-color 0.2s ease;
+                font-size: 14px;
+            }
+            
+            .dropdown-menu a:hover {
+                background-color: #f0f0f0;
+            }
+            
+            .dropdown-menu a.active {
+                background-color: #e0e0e0;
+                font-weight: 600;
+            }
+            
+            /* Theme toggle styles */
+            .theme-toggles {
+                display: flex !important;
+                gap: 10px;
+                align-items: center;
+            }
+            
+            .theme-toggles a {
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                background-color: transparent;
+                color: #333;
+                transition: all 0.3s ease;
+            }
+            
+            .theme-toggles a:hover {
+                background-color: rgba(0, 0, 0, 0.1);
+            }
+            
+            #light-mode-btn {
+                color: #FF9800;
+            }
+            
+            #dark-mode-btn {
+                color: #2196F3;
+            }
+            
+            /* Dark mode styles */
+            body.dark-mode {
+                background-color: #121212;
+                color: #f0f0f0;
+            }
+            
+            body.dark-mode #main-header {
+                background-color: #1e1e1e;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            }
+            
+            body.dark-mode #main-nav a {
+                color: #f0f0f0;
+            }
+            
+            body.dark-mode .main-article,
+            body.dark-mode .article-card {
+                background-color: #1e1e1e;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            }
+            
+            body.dark-mode .article-title,
+            body.dark-mode .article-content h3,
+            body.dark-mode .article-card-title {
+                color: #f0f0f0;
+            }
+            
+            body.dark-mode .article-meta,
+            body.dark-mode .article-card-excerpt {
+                color: #aaa;
+            }
+            
+            body.dark-mode .dropdown-menu {
+                background-color: #1e1e1e;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            }
+            
+            body.dark-mode .dropdown-menu a {
+                color: #f0f0f0;
+            }
+            
+            body.dark-mode .dropdown-menu a:hover {
+                background-color: #333;
+            }
+            
+            body.dark-mode .dropdown-menu a.active {
+                background-color: #444;
+            }
+            
+            body.dark-mode footer,
+            body.dark-mode .footer-bottom {
+                background-color: #1e1e1e;
+                color: #f0f0f0;
+            }
+            
+            body.dark-mode .comment-form textarea,
+            body.dark-mode .newsletter-form input {
+                background-color: #2a2a2a;
+                color: #f0f0f0;
+                border-color: #444;
+            }
+            
+            body.dark-mode .btn-submit,
+            body.dark-mode .newsletter-form button {
+                background-color: #2196F3;
+            }
+            
+            body.dark-mode #back-to-top {
+                background-color: #333;
+                color: #fff;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
