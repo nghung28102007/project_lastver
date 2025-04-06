@@ -7,6 +7,58 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Thêm CSS cho nút đăng nhập */
+        .login-button {
+            display: inline-block;
+            margin-left: 10px;
+        }
+        
+        .login-button a {
+            background-color: #f44336;
+            color: white !important;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .login-button a:hover {
+            background-color: #d32f2f;
+        }
+        
+        body.dark-mode .login-button a {
+            background-color: #d32f2f;
+        }
+        
+        body.dark-mode .login-button a:hover {
+            background-color: #b71c1c;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+        
+        /* Căn chỉnh biểu tượng địa cầu */
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .dropdown-toggle i {
+            vertical-align: middle;
+        }
+        
+        /* Dịch biểu tượng mũi tên hướng xuống sang phải */
+        .dropdown-toggle .fa-caret-down {
+            margin-left: 2px;
+        }
+    </style>
     <link href="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js" rel="stylesheet">
 </head>
 <body>
@@ -20,11 +72,9 @@
                     <li><a href="index.html" class="active">Trang chủ</a></li>
                     <li><a href="news.html">Tin tức</a></li>
                     <li><a href="#">Lịch thi đấu</a></li>
-                    <li><a href="#">Bình luận</a></li>
-                    <li><a href="authenticate/signin.html">Đăng nhập</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle">
-                            <i class="fas fa-globe"></i> Ngôn ngữ <i class="fas fa-caret-down"></i>
+                            <i class="fas fa-globe"></i> <i class="fas fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#" data-lang="vi" class="language-option active">Tiếng Việt</a></li>
@@ -37,11 +87,14 @@
                     </li>
                 </ul>
             </nav>
-            <div class="weather-header" id="weather-header">
-                <div class="weather-icon">
-                    <i class="fas fa-sun"></i>
+            <div class="header-right">
+                <div class="weather-header" id="weather-header">
+                    <div class="weather-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <div class="weather-info-header">Đang tải...</div>
                 </div>
-                <div class="weather-info-header">Đang tải...</div>
+                <div class="login-button"><a href="authenticate/signin.html"><i class="fas fa-sign-in-alt"></i> Sign In</a></div>
             </div>
             <div class="toggle-menu">
                 <i class="fas fa-bars"></i>
@@ -156,9 +209,8 @@
                         <li><a href="index.html">Trang chủ</a></li>
                         <li><a href="news.html">Tin tức</a></li>
                         <li><a href="#">Lịch thi đấu</a></li>
-                        <li><a href="#">Bình luận</a></li>
                         <li><a href="#">Giải đấu</a></li>
-                        <li><a href="authenticate/signin.html">Đăng nhập</a></li>
+                        <li><a href="authenticate/signin.html">Sign In</a></li>
                     </ul>
                 </div>
                 <div class="footer-contact">
@@ -517,16 +569,14 @@
                         footerLinks[0].textContent = 'Home';
                         footerLinks[1].textContent = 'News';
                         footerLinks[2].textContent = 'Match Schedule';
-                        footerLinks[3].textContent = 'Comments';
-                        footerLinks[4].textContent = 'Tournaments';
-                        footerLinks[5].textContent = 'Login';
+                        footerLinks[3].textContent = 'Tournaments';
+                        footerLinks[4].textContent = 'Login';
                     } else {
                         footerLinks[0].textContent = 'Trang chủ';
                         footerLinks[1].textContent = 'Tin tức';
                         footerLinks[2].textContent = 'Lịch thi đấu';
-                        footerLinks[3].textContent = 'Bình luận';
-                        footerLinks[4].textContent = 'Giải đấu';
-                        footerLinks[5].textContent = 'Đăng nhập';
+                        footerLinks[3].textContent = 'Giải đấu';
+                        footerLinks[4].textContent = 'Đăng nhập';
                     }
                 }
                 

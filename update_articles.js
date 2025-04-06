@@ -275,7 +275,7 @@ fs.readdir(articlesDir, (err, files) => {
 
             // Add translations.js script and theme toggle script before closing body tag
             updatedContent = updatedContent.replace(
-                /<script src="\.\.\/js\/darkmode\.js"><\/script>\s*<\/body>/,
+                // /<script src="\.\.\/js\/darkmode\.js"><\/script>\s*<\/body>/,
                 '<script src="../js/darkmode.js"></script>' + scriptToAdd + '</body>'
             );
 

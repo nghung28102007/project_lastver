@@ -8,9 +8,10 @@ const translations = {
         schedule: 'Lịch thi đấu',
         comments: 'Bình luận',
         login: 'Đăng nhập',
-        language: 'Ngôn ngữ',
+        language: '',
         darkMode: 'Chế độ tối',
         lightMode: 'Chế độ sáng',
+        logOut: 'Đăng xuất',
         
         // Common UI elements
         newsHeading: 'Tin tức bóng đá mới nhất',
@@ -31,7 +32,24 @@ const translations = {
         tactics: 'Phân tích chiến thuật',
         history: 'Lịch sử đối đầu',
         prediction: 'Dự đoán kết quả',
-        broadcast: 'Thông tin phát sóng'
+        broadcast: 'Thông tin phát sóng',
+        
+        // Weather widget
+        selectCity: 'Chọn thành phố:',
+        wind: 'Gió',
+        humidity: 'Độ ẩm',
+        clouds: 'Mây',
+        loading: 'Đang tải...',
+        
+        // Calendar widget
+        calendarTitle: 'Tháng',
+        months: [
+            'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 
+            'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'
+        ],
+        weekdays: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+        previousMonth: 'Tháng trước',
+        nextMonth: 'Tháng sau'
     },
     
     en: {
@@ -40,10 +58,11 @@ const translations = {
         news: 'News',
         schedule: 'Match Schedule',
         comments: 'Comments',
-        login: 'Login',
-        language: 'Language',
+        login: 'Sign In',
+        language: '',
         darkMode: 'Dark Mode',
         lightMode: 'Light Mode',
+        logOut: 'Log out',
         
         // Common UI elements
         newsHeading: 'Latest Football News',
@@ -64,7 +83,24 @@ const translations = {
         tactics: 'Tactical analysis',
         history: 'Head-to-head history',
         prediction: 'Match prediction',
-        broadcast: 'Broadcast information'
+        broadcast: 'Broadcast information',
+        
+        // Weather widget
+        selectCity: 'Select city:',
+        wind: 'Wind',
+        humidity: 'Humidity',
+        clouds: 'Clouds',
+        loading: 'Loading...',
+        
+        // Calendar widget
+        calendarTitle: 'Month',
+        months: [
+            'January', 'February', 'March', 'April', 'May', 'June', 
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ],
+        weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        previousMonth: 'Previous month',
+        nextMonth: 'Next month'
     },
 
     // Article translations

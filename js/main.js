@@ -141,3 +141,8 @@ document.addEventListener('DOMContentLoaded', function() {
         sr.reveal('.comments-section', { delay: 200 });
     }
 });
+
+
+function logOut() {
+    window.location.href = "authenticate/signin.html";
+}
